@@ -7,7 +7,7 @@ class UserController {
 		const { name, email, password } = request.body;
 		const checkUserExists = await knex("users").where({ email }).first();
 		if (checkUserExists) {
-			throw new AppError("E-mail já cadastrado, tente outro e-mail.");
+			throw new AppError("E-mail já cadastrado, utilize outro e-mail.");
 		}
 		const hashPassword = await hash(password, 8);
 		await knex("users").insert({ name, email, password: hashPassword });
