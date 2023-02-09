@@ -3,13 +3,13 @@
  * @returns { Promise<void> }
  */
 exports.up = function (knex) {
-	return knex.schema.createTable("users", (table) => {
+	return knex.schema.createTable("orders", (table) => {
 		table.increments("id").primary();
-		table.string("username").notNullable();
-		table.string("email").notNullable().unique();
-		table.string("password").notNullable();
-		table.boolean("is_admin").notNullable().defaultTo(false);
+		table.string("status");
+		table.string("description");
 		table.timestamps(true, true);
+		table.integer("user_id").notNullable();
+		table.foreign("user_id").references("id").inTable("users");
 	});
 };
 
@@ -18,5 +18,5 @@ exports.up = function (knex) {
  * @returns { Promise<void> }
  */
 exports.down = function (knex) {
-	return knex.schema.dropTableIfExists("users");
+	return knex.schema.dropTableIfExists("orders");
 };

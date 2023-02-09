@@ -10,6 +10,7 @@ exports.up = function (knex) {
 		table.string("price").notNullable();
 		table.string("image").notNullable();
 		table.string("category").notNullable();
+		table.timestamps(true, true);
 	});
 };
 
