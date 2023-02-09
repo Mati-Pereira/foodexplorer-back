@@ -3,10 +3,10 @@ const favoritesRoutes = Router();
 const isAuthenticated = require("../middleware/isAuthenticated");
 const favoritesController = require("../controllers/FavoritesController");
 
-favoritesController.use(isAuthenticated);
+favoritesRoutes.use(isAuthenticated);
 
-favoritesController.get("/", favoritesController.show);
-favoritesController.post("/", favoritesController.create);
-favoritesController.put("/:id", favoritesController.update);
+favoritesRoutes.get("/", favoritesController.show);
+favoritesRoutes.post("/", favoritesController.create);
+favoritesRoutes.put("/:id", favoritesController.update);
 
 module.exports = favoritesRoutes;

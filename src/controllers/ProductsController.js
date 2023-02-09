@@ -1,6 +1,6 @@
 const knex = require("../knex");
 const AppError = require("../utils/AppError");
-const DiskStorage = require("../utils/DiskStorage");
+const DiskStorage = require("../providers/DiskStorage");
 
 class ProductsController {
 	async index(req, res) {
