@@ -10,6 +10,23 @@ class FavoritesController {
 		});
 		return res.json(newFavorite);
 	}
+	async update(req, res) {
+		const user_id = req.user.id;
+		const { favoriteList } = req.body;
+		if (favoriteList) {
+			await knex("favorites").where({ user_id }).update({
+				favoriteList,
+			});
+		}
+		return res.json({
+			message: "Lista de favoritos atualizada com sucesso!",
+		});
+	}
+	async show(req, res) {
+		const user_id = req.user.id;
+		const favorites = await knex("favorites").where({ user_id });
+		return res.json(favorites);
+	}
 }
 
 module.exports = new FavoritesController();
