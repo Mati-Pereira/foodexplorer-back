@@ -9,7 +9,7 @@
 		"format": "prettier --write .",
 		"fix": "eslint --fix --ext .js .",
 		"seed": "knex seed:run",
-		"migration": "knex migrate:lastest",
+		"migration": "knex migrate:latest",
 		"rollback": "knex migrate:rollback --all"
 	},
 	"dependencies": {
