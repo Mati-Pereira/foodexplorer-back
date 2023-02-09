@@ -5,13 +5,12 @@ const { hash } = require("bcryptjs");
  * @returns { Promise<void> }
  */
 exports.seed = async function (knex) {
-	// Deletes ALL existing entries
 	await knex("users").del();
 	await knex("users").insert([
 		{
-			name: "admin",
+			username: "admin",
 			email: "admin@email.com",
-			password: await hash("112233", 8),
+			password: await hash("123456789", 8),
 			is_admin: true,
 		},
 	]);
