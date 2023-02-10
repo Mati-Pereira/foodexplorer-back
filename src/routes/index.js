@@ -9,7 +9,7 @@ const products = require("./products.route");
 
 const router = Router();
 
-router.use("/user", user);
+router.use("/users", user);
 router.use("/sessions", sessions);
 router.use("/adminOrders", admin);
 router.use("/favorites", favorites);
