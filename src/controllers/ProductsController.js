@@ -20,37 +20,35 @@ class ProductsController {
 		}
 	}
 	async create(req, res) {
-		try {
-			const { name, price, description, ingredients, type } = req.body;
-			const image = req.files.filename;
-			if (!image) {
-				throw new AppError("Arquivo de imagem não foi enviado corretamente.");
-			}
-			if (!name || !price || !description || !ingredients || !type || !image) {
-				throw new AppError("Não foi possivel realizar o cadastro.");
-			}
-			const filename = await diskStorage.saveFile(image);
-			const product_id = await knex("products").insert({
-				name,
-				price,
-				description,
-				type,
-				image: filename,
-			});
-			if (ingredients) {
-				const insertIngredients = ingredients.map((ingredient) => {
-					return {
-						name: ingredient.name,
-						image: ingredient.image,
-						product_id,
-					};
-				});
-				await knex("ingredients").insert(insertIngredients);
-			}
-			return res.json({ message: "Produto cadastrado com sucesso!" });
-		} catch (err) {
-			return res.json({ error: err.message });
+		const { name, price, description, ingredients, type } = req.body;
+		const image = req.files.filename;
+		if (!image) {
+			throw new AppError("Arquivo de imagem não foi enviado corretamente.");
 		}
+		if (!name || !price || !description || !ingredients || !type || !image) {
+			throw new AppError("Não foi possivel realizar o cadastro.");
+		}
+
+		const filename = await diskStorage.saveFile(image);
+
+		const product_id = await knex("products").insert({
+			name,
+			price,
+			description,
+			type,
+			image: filename,
+		});
+		if (ingredients) {
+			const insertIngredients = ingredients.map((ingredient) => {
+				return {
+					name: ingredient.name,
+					image: ingredient.image,
+					product_id,
+				};
+			});
+			await knex("ingredients").insert(insertIngredients);
+		}
+		return res.json({ message: "Produto cadastrado com sucesso!" });
 	}
 	async delete(req, res) {
 		try {
