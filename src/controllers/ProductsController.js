@@ -1,6 +1,6 @@
 const knex = require("../knex");
 const AppError = require("../utils/AppError");
-const DiskStorage = require("../providers/DiskStorage");
+const diskStorage = require("../providers/DiskStorage");
 
 class ProductsController {
 	async index(req, res) {
@@ -21,11 +21,11 @@ class ProductsController {
 	}
 	async create(req, res) {
 		try {
-			const data = req.body.data;
-			const { name, price, description, ingredients, type } = JSON.parse(data);
+			const { name, price, description, ingredients, type } = req.body;
 			const image = req.files.filename;
-
-			const diskStorage = new DiskStorage();
+			if (!image) {
+				throw new AppError("Arquivo de imagem não foi enviado corretamente.");
+			}
 			if (!name || !price || !description || !ingredients || !type || !image) {
 				throw new AppError("Não foi possivel realizar o cadastro.");
 			}
@@ -84,7 +84,6 @@ class ProductsController {
 			const { name, price, description, type, ingredients } = JSON.parse(data);
 			const { id } = req.params;
 			const image = req.files.filename;
-			const diskStorage = new DiskStorage();
 			if (!name || !price || !description || !type || !image) {
 				throw new AppError("Não foi possivel realizar o cadastro.");
 			}
