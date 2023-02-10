@@ -45,7 +45,6 @@ class ProductsController {
 				const insertIngredients = ingredients.map((ingredient) => {
 					return {
 						name: ingredient.name,
-						image: ingredient.image,
 						product_id,
 					};
 				});
