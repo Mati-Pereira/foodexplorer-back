@@ -16,11 +16,15 @@ class SessionsController {
 			throw new AppError("Email e/ou Senha estão inválidos");
 		}
 		const { secret, expiresIn } = authConfig.jwt;
-		const token = sign({}, secret, {
+		const access_token = sign({}, secret, {
 			subject: String(user.id),
 			expiresIn,
 		});
-		return response.json({ user: user.username, token });
+		return response.json({
+			user: user.username,
+			is_admin: user.is_admin,
+			access_token,
+		});
 	}
 }
 
