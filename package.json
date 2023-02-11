@@ -1,7 +1,8 @@
 {
 	"name": "foodexplorer-back",
-	"version": "1.0.0",
-	"main": "index.js",
+	"description": "FoodExplorer Backend",
+	"version": "0.0.1",
+	"main": "src/server.js",
 	"license": "MIT",
 	"scripts": {
 		"dev": "nodemon src/server.js",
