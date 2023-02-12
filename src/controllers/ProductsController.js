@@ -41,15 +41,16 @@ class ProductsController {
 				category,
 				image: filename,
 			});
-			if (ingredients) {
-				const insertIngredients = ingredients.map((ingredient) => {
-					return {
-						name: ingredient.name,
-						product_id,
-					};
-				});
-				await knex("ingredients").insert(insertIngredients);
-			}
+
+			const insertIngredients = ingredients.map((ingredient) => {
+				return {
+					name: ingredient,
+					product_id,
+				};
+			});
+
+			await knex("ingredients").insert(insertIngredients);
+
 			return res.json({ message: "Produto cadastrado com sucesso!" });
 		} catch (err) {
 			return res.json({ error: err.message });
