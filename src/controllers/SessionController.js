@@ -14,8 +14,9 @@ class SessionsController {
 		if (!passwordMatched) {
 			throw new AppError("Email e/ou Senha estão inválidos", 401);
 		}
+		console.log(user.id);
 		const access_token = sign({}, process.env.AUTH_SECRET, {
-			subject: user.id,
+			subject: String(user.id),
 			expiresIn: "1d",
 		});
 		return res.json({
