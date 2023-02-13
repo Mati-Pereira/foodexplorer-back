@@ -1,6 +1,5 @@
 const { verify } = require("jsonwebtoken");
 const AppError = require("../utils/AppError");
-const authConfig = require("../configs/auth");
 
 function isAuthenticated(req, res, next) {
 	const authHeader = req.headers.authorization;
@@ -9,8 +8,8 @@ function isAuthenticated(req, res, next) {
 	}
 	const token = authHeader.split(" ")[1];
 	try {
-		const { sub: user_id } = verify(token, authConfig.jwt.secret);
-		req.user = { id: Number(user_id) };
+		const { sub: user_id } = verify(token, process.env.AUTH_SECRET);
+		req.user = { id: String(user_id) };
 		return next();
 	} catch {
 		throw new AppError("Token inválido");
