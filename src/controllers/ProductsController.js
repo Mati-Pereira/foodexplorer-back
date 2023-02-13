@@ -94,13 +94,13 @@ class ProductsController {
 			const data = req.body.data;
 			const { name, price, description, type, ingredients } = JSON.parse(data);
 			const { id } = req.params;
-			const image = req.files.filename;
+			const image = req.file.filename;
 			if (!name || !price || !description || !type || !image) {
 				throw new AppError("Não foi possivel realizar o cadastro.");
 			}
 			const filename = await diskStorage.saveFile(image);
 
-			await knex("products").insert({
+			await knex("products").where({ id }).update({
 				name,
 				price,
 				description,
@@ -108,16 +108,15 @@ class ProductsController {
 				image: filename,
 			});
 
-			if (ingredients) {
-				await knex("ingredients").where({ product_id: id }).del();
-				const insertIngredients = ingredients.map((ingredient) => {
-					return {
-						name: ingredient.name,
-						product_id: id,
-					};
-				});
-				await knex("ingredients").insert(insertIngredients);
-			}
+			await knex("ingredients").where({ product_id: id }).delete();
+
+			const insertIngredients = ingredients.map((ingredient) => {
+				return {
+					name: ingredient,
+					product_id: id,
+				};
+			});
+			await knex("ingredients").update(insertIngredients);
 			return res.json({ message: "Produto atualizado com sucesso!" });
 		} catch (err) {
 			return res.json({ error: err.message });
