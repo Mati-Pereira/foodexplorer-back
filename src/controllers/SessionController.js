@@ -2,6 +2,7 @@ const knex = require("../knex");
 const AppError = require("../utils/AppError");
 const { compare } = require("bcryptjs");
 const { sign } = require("jsonwebtoken");
+const authConfig = require("../configs/auth");
 
 class SessionsController {
 	async create(req, res) {
@@ -14,10 +15,11 @@ class SessionsController {
 		if (!passwordMatched) {
 			throw new AppError("Email e/ou Senha estão inválidos", 401);
 		}
-		console.log(user.id);
-		const access_token = sign({}, process.env.AUTH_SECRET, {
+		const { secret, expiresIn } = authConfig.jwt;
+
+		const access_token = sign({}, secret, {
 			subject: String(user.id),
-			expiresIn: "1d",
+			expiresIn,
 		});
 		return res.json({
 			user: user.username,

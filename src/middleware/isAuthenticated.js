@@ -1,19 +1,27 @@
 const { verify } = require("jsonwebtoken");
 const AppError = require("../utils/AppError");
 
-function isAuthenticated(req, res, next) {
-	const authHeader = req.headers.common["Authorization"];
+const authConfig = require("../configs/auth");
+
+function ensureAuthenticated(request, response, next) {
+	const authHeader = request.headers.authorization;
+
 	if (!authHeader) {
-		throw new AppError("Usuário não autenticado");
+		throw new AppError("JWT token inválido");
 	}
-	const token = authHeader.split(" ")[1];
+
+	const [, token] = authHeader.split(" ");
 	try {
-		const { sub: user_id } = verify(token, process.env.AUTH_SECRET);
-		req.user.id = user_id;
+		const { sub: user_id } = verify(token, authConfig.jwt.secret);
+
+		request.user = {
+			id: Number(user_id),
+		};
+
 		return next();
 	} catch {
-		throw new AppError("Token inválido");
+		throw new AppError("JWT token inválido");
 	}
 }
 
-module.exports = isAuthenticated;
+module.exports = ensureAuthenticated;
