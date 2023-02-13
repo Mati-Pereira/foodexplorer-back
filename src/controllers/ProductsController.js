@@ -78,11 +78,12 @@ class ProductsController {
 			if (!product) {
 				throw new AppError("Produto não encontrado.");
 			}
+			if (!ingredients) {
+				throw new AppError("Ingredientes não encontrados.");
+			}
 			return res.json({
-				product: {
-					...product,
-					ingredients,
-				},
+				...product,
+				ingredients,
 			});
 		} catch (err) {
 			return res.json({ error: err.message });
