@@ -2,7 +2,7 @@ const { verify } = require("jsonwebtoken");
 const AppError = require("../utils/AppError");
 
 function isAuthenticated(req, res, next) {
-	const authHeader = req.headers["Authorization"];
+	const authHeader = req.headers.common["Authorization"];
 	if (!authHeader) {
 		throw new AppError("Usuário não autenticado");
 	}
