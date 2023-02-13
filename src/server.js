@@ -11,7 +11,7 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 app.use(routes);
-app.use("/products", express.static(uploadConfig.UPLOADS_FOLDER));
+app.use("/", express.static(uploadConfig.UPLOADS_FOLDER));
 
 app.use((error, request, response, next) => {
 	if (error instanceof AppError) {
@@ -26,6 +26,6 @@ app.use((error, request, response, next) => {
 	});
 });
 
-app.listen(process.env.PORT, () => {
-	console.log(`O server está rodando na porta ${process.env.PORT}`);
+app.listen(3000, () => {
+	console.log(`O server está rodando na porta ${3000}`);
 });

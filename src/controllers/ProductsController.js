@@ -73,11 +73,17 @@ class ProductsController {
 	async show(req, res) {
 		try {
 			const { id } = req.params;
-			const product = await knex("products").where("id", id).first();
+			const product = await knex("products").where({ id }).first();
+			const ingredients = await knex("ingredients").where({ product_id: id });
 			if (!product) {
 				throw new AppError("Produto não encontrado.");
 			}
-			return res.json(product);
+			return res.json({
+				product: {
+					...product,
+					ingredients,
+				},
+			});
 		} catch (err) {
 			return res.json({ error: err.message });
 		}
