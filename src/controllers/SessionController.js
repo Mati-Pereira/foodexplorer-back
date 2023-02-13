@@ -15,7 +15,7 @@ class SessionsController {
 			throw new AppError("Email e/ou Senha estão inválidos", 401);
 		}
 		const access_token = sign({}, process.env.AUTH_SECRET, {
-			subject: String(user.id),
+			subject: user.id,
 			expiresIn: "1d",
 		});
 		return res.json({
