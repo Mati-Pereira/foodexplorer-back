@@ -86,7 +86,6 @@ class ProductsController {
 	async update(req, res) {
 		try {
 			const data = req.body.data;
-			console.log(data);
 			const { name, price, description, type, ingredients } = JSON.parse(data);
 			const { id } = req.params;
 			const image = req.file.filename;
@@ -109,7 +108,9 @@ class ProductsController {
 				};
 			});
 
-			await knex("ingredients").update(insertIngredients);
+			await knex("ingredients")
+				.where({ product_id: id })
+				.update(insertIngredients);
 			return res.json({ message: "Produto atualizado com sucesso!" });
 		} catch (err) {
 			return res.json({ error: err.message });
