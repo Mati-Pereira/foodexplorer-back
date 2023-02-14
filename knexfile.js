@@ -7,7 +7,7 @@ const path = require("path");
 module.exports = {
 	client: "sqlite3",
 	connection: {
-		filename: "./dev.sqlite3",
+		filename: "./database.db",
 	},
 	migrations: {
 		directory: path.resolve(__dirname, "src", "knex", "migrations"),
