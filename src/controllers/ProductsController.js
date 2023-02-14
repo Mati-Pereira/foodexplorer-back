@@ -86,7 +86,7 @@ class ProductsController {
 	async update(req, res) {
 		try {
 			const data = req.body.data;
-			console.log(data);
+			// console.log(data);
 			const { name, price, description, category, ingredients } =
 				JSON.parse(data);
 			const { id } = req.params;
