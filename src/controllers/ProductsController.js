@@ -93,6 +93,7 @@ class ProductsController {
 				throw new AppError("Não foi possivel realizar o cadastro.");
 			}
 			const filename = await diskStorage.saveFile(image);
+
 			await knex("products").where({ id }).update({
 				name,
 				price,
