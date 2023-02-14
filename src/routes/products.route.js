@@ -9,11 +9,7 @@ const productsController = require("../controllers/ProductsController");
 productsRoutes.get("/", productsController.index);
 productsRoutes.get("/:id", productsController.show);
 productsRoutes.post("/", upload.single("image"), productsController.create);
-productsRoutes.put(
-	"/:id",
-	upload.single("image"),
-	productsController.attributes,
-);
+productsRoutes.put("/:id", upload.single("image"), productsController.update);
 productsRoutes.delete("/:id", productsController.delete);
 
 module.exports = productsRoutes;

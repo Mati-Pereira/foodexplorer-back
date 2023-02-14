@@ -75,12 +75,6 @@ class ProductsController {
 			const { id } = req.params;
 			const product = await knex("products").where({ id }).first();
 			const ingredients = await knex("ingredients").where({ product_id: id });
-			if (!product) {
-				throw new AppError("Produto não encontrado.");
-			}
-			if (!ingredients) {
-				throw new AppError("Ingredientes não encontrados.");
-			}
 			return res.json({
 				...product,
 				ingredients,
@@ -89,9 +83,10 @@ class ProductsController {
 			return res.json({ error: err.message });
 		}
 	}
-	async attributes(req, res) {
+	async update(req, res) {
 		try {
 			const data = req.body.data;
+			console.log(data);
 			const { name, price, description, type, ingredients } = JSON.parse(data);
 			const { id } = req.params;
 			const image = req.file.filename;
@@ -99,7 +94,6 @@ class ProductsController {
 				throw new AppError("Não foi possivel realizar o cadastro.");
 			}
 			const filename = await diskStorage.saveFile(image);
-
 			await knex("products").where({ id }).update({
 				name,
 				price,
@@ -108,14 +102,13 @@ class ProductsController {
 				image: filename,
 			});
 
-			await knex("ingredients").where({ product_id: id }).delete();
-
 			const insertIngredients = ingredients.map((ingredient) => {
 				return {
 					name: ingredient,
 					product_id: id,
 				};
 			});
+
 			await knex("ingredients").update(insertIngredients);
 			return res.json({ message: "Produto atualizado com sucesso!" });
 		} catch (err) {
