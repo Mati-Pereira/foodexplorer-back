@@ -10,7 +10,7 @@ function ensureAuthenticated(request, response, next) {
 		throw new AppError("JWT token inválido");
 	}
 
-	const [, token] = authHeader.split(" ");
+	const token = authHeader.split(" ")[1];
 	try {
 		const { sub: user_id } = verify(token, authConfig.jwt.secret);
 
