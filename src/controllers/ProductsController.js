@@ -84,18 +84,25 @@ class ProductsController {
 		}
 	}
 	async update(req, res) {
+		// try {
 		const data = req.body.data;
 		const { name, price, description, category, ingredients } =
 			JSON.parse(data);
 		const { id } = req.params;
 
+		console.log(data);
+
 		const image = req.file?.filename;
+
+		console.log(image);
 
 		if (!name || !price || !description || !category || !image) {
 			throw new AppError("Não foi possivel realizar o cadastro.");
 		}
 
 		const filename = await diskStorage.saveFile(image);
+
+		// console.log(filename)
 
 		await knex("products").where({ id }).update({
 			name,
@@ -117,6 +124,9 @@ class ProductsController {
 			.update(insertIngredients);
 
 		return res.json({ message: "Produto atualizado com sucesso!" });
+		// } catch (err) {
+		// 	return res.json({ error: err.message });
+		// }
 	}
 }
 
