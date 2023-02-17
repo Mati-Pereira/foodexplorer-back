@@ -5,17 +5,17 @@ specifiers:
   body-parser: ^1.20.1
   cors: ^2.8.5
   dotenv: ^16.0.3
-  eslint: ^8.33.0
+  eslint: ^8.34.0
   eslint-config-prettier: ^8.6.0
   eslint-plugin-prettier: ^4.2.1
   express: ^4.18.2
   express-async-errors: ^3.1.1
-  jest: ^29.4.2
+  jest: ^29.4.3
   jsonwebtoken: ^9.0.0
   knex: ^2.4.2
-  multer: ^1.4.5-lts.1
+  multer: 1.4.5-lts.1
   nodemon: ^2.0.20
-  prettier: ^2.8.3
+  prettier: ^2.8.4
   rewire: ^6.0.0
   sqlite: ^4.1.2
   sqlite3: ^5.1.4
@@ -1185,8 +1185,8 @@ packages:
     engines: {node: ^6 || ^7 || ^8 || ^9 || ^10 || ^11 || ^12 || >=13.7}
     hasBin: true
     dependencies:
-      caniuse-lite: 1.0.30001454
-      electron-to-chromium: 1.4.300
+      caniuse-lite: 1.0.30001456
+      electron-to-chromium: 1.4.301
       node-releases: 2.0.10
       update-browserslist-db: 1.0.10_browserslist@4.21.5
     dev: true
@@ -1264,8 +1264,8 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  /caniuse-lite/1.0.30001454:
-    resolution: {integrity: sha512-4E63M5TBbgDoA9dQoFRdjL6iAmzTrz3rwYWoKDlvnvyvBxjCZ0rrUoX3THhEMie0/RYuTCeMbeTYLGAWgnLwEg==}
+  /caniuse-lite/1.0.30001456:
+    resolution: {integrity: sha512-XFHJY5dUgmpMV25UqaD4kVq2LsiaU5rS8fb0f17pCoXQiQslzmFgnfOxfvo1bTpTqf7dwG/N/05CnLCnOEKmzA==}
     dev: true
 
   /chalk/2.4.2:
@@ -1576,8 +1576,8 @@ packages:
     resolution: {integrity: sha512-WMwm9LhRUo+WUaRN+vRuETqG89IgZphVSNkdFgeb6sS/E4OrDIN7t48CAewSHXc6C8lefD8KKfr5vY61brQlow==}
     dev: false
 
-  /electron-to-chromium/1.4.300:
-    resolution: {integrity: sha512-tHLIBkKaxvG6NnDWuLgeYrz+LTwAnApHm2R3KBNcRrFn0qLmTrqQeB4X4atfN6YJbkOOOSdRBeQ89OfFUelnEQ==}
+  /electron-to-chromium/1.4.301:
+    resolution: {integrity: sha512-bz00ASIIDjcgszZKuEA1JEFhbDjqUNbQ/PEhNEl1wbixzYpeTp2H2QWjsQvAL2T1wJBdOwCF5hE896BoMwYKrA==}
     dev: true
 
   /emittery/0.13.1:
