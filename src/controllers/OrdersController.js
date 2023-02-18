@@ -9,19 +9,15 @@ class OrdersController {
 	}
 	async create(req, res) {
 		const user_id = req.user.id;
-
 		const { status, description } = req.body;
-
 		if (!status || !description) {
 			throw new AppError("Preencha todos os campos", 400);
 		}
-
 		await knex("orders").insert({
 			status,
 			description,
 			user_id,
 		});
-
 		return res.json({ message: "Pedido criado com sucesso" });
 	}
 }

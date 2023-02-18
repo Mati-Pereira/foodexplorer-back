@@ -4,11 +4,13 @@ class FavoritesController {
 	async create(req, res) {
 		const user_id = req.user.id;
 		const { name } = req.body;
-		const newFavorite = await knex("favorites").insert({
+		await knex("favorites").insert({
 			user_id,
 			name,
 		});
-		return res.json(newFavorite);
+		return res.json({
+			message: "Lista de favoritos criada com sucesso!",
+		});
 	}
 	async update(req, res) {
 		const user_id = req.user.id;
