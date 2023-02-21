@@ -3,10 +3,10 @@ const knex = require("../knex");
 class FavoritesController {
 	async create(req, res) {
 		const user_id = req.user.id;
-		const { name } = req.body;
+		const favoriteList = req.body.favoriteList;
 		await knex("favorites").insert({
 			user_id,
-			name,
+			favoriteList,
 		});
 		return res.json({
 			message: "Lista de favoritos criada com sucesso!",
