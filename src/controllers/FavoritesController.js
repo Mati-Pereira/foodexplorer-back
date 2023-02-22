@@ -3,7 +3,7 @@ const knex = require("../knex");
 class FavoritesController {
 	async create(req, res) {
 		const user_id = req.user.id;
-		const favoriteList = req.body.favoriteList;
+		const { favoriteList } = req.body;
 		await knex("favorites").insert({
 			user_id,
 			favoriteList,

@@ -8,8 +8,6 @@ exports.up = function (knex) {
 		table.string("favoriteList");
 		table.integer("user_id").notNullable();
 		table.foreign("user_id").references("id").inTable("users");
-		table.integer("product_id").notNullable();
-		table.foreign("product_id").references("id").inTable("products");
 		table.timestamps(true, true);
 	});
 };
