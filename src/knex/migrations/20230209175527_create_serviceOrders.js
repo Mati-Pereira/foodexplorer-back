@@ -9,7 +9,11 @@ exports.up = function (knex) {
 		table.string("description");
 		table.timestamps(true, true);
 		table.integer("user_id").notNullable();
-		table.foreign("user_id").references("id").inTable("users");
+		table
+			.foreign("user_id")
+			.references("id")
+			.inTable("users")
+			.onDelete("CASCADE");
 	});
 };
 

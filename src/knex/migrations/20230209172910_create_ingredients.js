@@ -7,7 +7,11 @@ exports.up = function (knex) {
 		table.increments("id").primary();
 		table.string("name").notNullable();
 		table.integer("product_id").notNullable();
-		table.foreign("product_id").references("id").inTable("products");
+		table
+			.foreign("product_id")
+			.references("id")
+			.inTable("products")
+			.onDelete("CASCADE");
 	});
 };
 

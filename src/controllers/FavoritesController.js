@@ -18,6 +18,7 @@ class FavoritesController {
 		if (favoriteList) {
 			await knex("favorites").where({ user_id }).update({
 				favoriteList,
+				updated_at: knex.fn.now(),
 			});
 		}
 		return res.json({
@@ -28,6 +29,13 @@ class FavoritesController {
 		const user_id = req.user.id;
 		const favorites = await knex("favorites").where({ user_id });
 		return res.json(favorites);
+	}
+	async delete(req, res) {
+		const user_id = req.user.id;
+		await knex("favorites").where({ user_id }).del();
+		return res.json({
+			message: "Lista de favoritos deletada com sucesso!",
+		});
 	}
 }
 
