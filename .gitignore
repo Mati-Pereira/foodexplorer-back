@@ -130,4 +130,4 @@ dist
 .pnp.*
 
 # database
-dev.sqlite3
+database.db
