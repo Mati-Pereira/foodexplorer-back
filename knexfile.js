@@ -17,4 +17,11 @@ module.exports = {
 		directory: path.resolve(__dirname, "src", "knex", "seeds"),
 	},
 	useNullAsDefault: true,
+	pool: {
+		afterCreate: (conn, done) => {
+			conn.run('PRAGMA timezone = "America/Sao_Paulo";', (err) => {
+				done(err, conn);
+			});
+		},
+	},
 };

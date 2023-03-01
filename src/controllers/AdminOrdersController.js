@@ -20,7 +20,7 @@ class AdminOrdersController {
 			) {
 				await knex("orders")
 					.where({ id })
-					.update({ status, updated_at: knex.fn.now() });
+					.update({ status, updated_at: knex.fn.now() - 3 });
 			} else {
 				throw new AppError("Status inválido", 400);
 			}
