@@ -26,9 +26,7 @@ class FavoritesController {
 	}
 	async show(req, res) {
 		const user_id = req.user.id;
-		console.log("user_id", user_id);
 		const favorites = await knex("favorites").where({ user_id }).first();
-		console.log("favorites", favorites);
 		return res.json(favorites);
 	}
 }

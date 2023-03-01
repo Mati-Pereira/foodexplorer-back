@@ -7,6 +7,6 @@ const isAuthenticated = require("../middleware/isAuthenticated");
 adminOrdersRoutes.use(isAuthenticated);
 
 adminOrdersRoutes.get("/", adminOrdersController.show);
-adminOrdersRoutes.put("/", adminOrdersController.update);
+adminOrdersRoutes.put("/:id", adminOrdersController.update);
 
 module.exports = adminOrdersRoutes;

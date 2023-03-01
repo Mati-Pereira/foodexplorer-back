@@ -11,7 +11,8 @@ class AdminOrdersController {
 		const { id } = req.params;
 		const { status } = req.body;
 		const user = await knex("users").where({ id: user_id }).first();
-		if (user.is_admin) {
+		const is_admin = Boolean(user.is_admin);
+		if (is_admin) {
 			if (
 				status === "delivered" ||
 				status === "preparing" ||
