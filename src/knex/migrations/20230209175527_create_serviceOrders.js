@@ -5,7 +5,7 @@
 exports.up = function (knex) {
 	return knex.schema.createTable("orders", (table) => {
 		table.increments("id").primary();
-		table.string("status");
+		table.string("status").defaultTo("pending");
 		table.string("description");
 		table.timestamps(true, true);
 		table.integer("user_id").notNullable();
