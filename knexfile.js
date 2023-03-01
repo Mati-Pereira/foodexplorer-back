@@ -8,7 +8,6 @@ module.exports = {
 	client: "sqlite3",
 	connection: {
 		filename: "./database.db",
-		timezone: "America/Sao_Paulo",
 	},
 	migrations: {
 		directory: path.resolve(__dirname, "src", "knex", "migrations"),

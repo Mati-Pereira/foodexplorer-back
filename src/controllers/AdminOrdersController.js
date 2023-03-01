@@ -1,5 +1,6 @@
 const knex = require("../knex");
 const AppError = require("../utils/AppError");
+const moment = require("moment-timezone");
 
 class AdminOrdersController {
 	async show(req, res) {
@@ -18,9 +19,8 @@ class AdminOrdersController {
 				status === "preparing" ||
 				status === "pending"
 			) {
-				await knex("orders")
-					.where({ id })
-					.update({ status, updated_at: knex.fn.now() });
+				const now = moment().tz("America/Sao_Paulo").format();
+				await knex("orders").where({ id }).update({ status, updated_at: now });
 			} else {
 				throw new AppError("Status inválido", 400);
 			}
