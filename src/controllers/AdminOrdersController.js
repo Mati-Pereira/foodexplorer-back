@@ -19,8 +19,14 @@ class AdminOrdersController {
 				status === "preparing" ||
 				status === "pending"
 			) {
-				const now = moment().tz("America/Sao_Paulo").format();
-				await knex("orders").where({ id }).update({ status, updated_at: now });
+				await knex("orders")
+					.where({ id })
+					.update({
+						status,
+						updated_at: moment()
+							.tz("America/Sao_Paulo")
+							.format("YYYY-MM-DD HH:mm:ss"),
+					});
 			} else {
 				throw new AppError("Status inválido", 400);
 			}

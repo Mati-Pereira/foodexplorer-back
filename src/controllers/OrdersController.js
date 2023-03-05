@@ -1,5 +1,6 @@
 const knex = require("../knex");
 const AppError = require("../utils/AppError");
+const moment = require("moment-timezone");
 
 class OrdersController {
 	async index(req, res) {
@@ -16,6 +17,12 @@ class OrdersController {
 		await knex("orders").insert({
 			description,
 			user_id,
+			created_at: moment()
+				.tz("America/Sao_Paulo")
+				.format("YYYY-MM-DD HH:mm:ss"),
+			updated_at: moment()
+				.tz("America/Sao_Paulo")
+				.format("YYYY-MM-DD HH:mm:ss"),
 		});
 		return res.json({ message: "Pedido criado com sucesso" });
 	}
