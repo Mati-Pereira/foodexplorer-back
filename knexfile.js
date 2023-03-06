@@ -2,7 +2,8 @@
  * @type { Object.<string, import("knex").Knex.Config> }
  */
 const path = require("path");
-require("dotenv/config");
+const dotenv = require("dotenv");
+dotenv.config({ path: ".env" });
 
 module.exports = {
 	client: "pg",
