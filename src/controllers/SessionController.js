@@ -16,7 +16,6 @@ class SessionsController {
 			throw new AppError("Email e/ou Senha estão inválidos", 401);
 		}
 		const { secret, expiresIn } = authConfig.jwt;
-
 		const access_token = sign({}, secret, {
 			subject: String(user.id),
 			expiresIn,
