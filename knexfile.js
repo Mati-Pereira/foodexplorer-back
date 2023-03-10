@@ -6,10 +6,8 @@ const dotenv = require("dotenv");
 dotenv.config({ path: ".env" });
 
 module.exports = {
-	client: "sqlite3",
-	connection: {
-		filename: path.resolve(__dirname, "database.db"),
-	},
+	client: "pg",
+	connection: process.env.DATABASE_URL,
 	migrations: {
 		directory: path.resolve(__dirname, "src", "knex", "migrations"),
 		tableName: "knex_migrations",
