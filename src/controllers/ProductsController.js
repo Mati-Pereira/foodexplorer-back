@@ -52,6 +52,7 @@ class ProductsController {
 			await knex("ingredients").insert(insertIngredients);
 			return res.json({ message: "Produto cadastrado com sucesso!" });
 		} catch (e) {
+			console.log(e);
 			throw new AppError(e.message, 500);
 		}
 	}
@@ -115,9 +116,8 @@ class ProductsController {
 					product_id: id,
 				};
 			});
-			await knex("ingredients")
-				.where({ product_id: id })
-				.update(insertIngredients);
+			await knex("ingredients").where({ product_id: id }).del();
+			await knex("ingredients").insert(insertIngredients);
 
 			return res.json({ message: "Produto atualizado com sucesso!" });
 		} catch (e) {
