@@ -4,14 +4,18 @@ const diskStorage = require("../providers/DiskStorage");
 
 class ProductsController {
 	async index(req, res) {
-		const { name } = req.query;
-		let products;
-		if (name) {
-			products = await knex("products").where("name", "LIKE", `%${name}%`);
-		} else {
-			products = await knex("products");
+		try {
+			const { name } = req.query;
+			let products;
+			if (name) {
+				products = await knex("products").where("name", "LIKE", `%${name}%`);
+			} else {
+				products = await knex("products");
+			}
+			return res.json(products);
+		} catch (e) {
+			throw new AppError(e.message, 500);
 		}
-		return res.json(products);
 	}
 	async create(req, res) {
 		try {
@@ -44,18 +48,22 @@ class ProductsController {
 			await knex("ingredients").insert(insertIngredients);
 			return res.json({ message: "Produto cadastrado com sucesso!" });
 		} catch (e) {
-			throw new AppError(e.message);
+			throw new AppError(e.message, 500);
 		}
 	}
 	async delete(req, res) {
-		const { id } = req.params;
-		const product = await knex("products").where("id", id).first();
-		if (!product) {
-			throw new AppError("Produto não encontrado.");
+		try {
+			const { id } = req.params;
+			const product = await knex("products").where("id", id).first();
+			if (!product) {
+				throw new AppError("Produto não encontrado.");
+			}
+			await knex("products").where("id", id).del();
+			await knex("ingredients").where("product_id", id).del();
+			return res.json({ message: "Produto removido com sucesso!" });
+		} catch (e) {
+			throw new AppError(e.message, 500);
 		}
-		await knex("products").where("id", id).del();
-		await knex("ingredients").where("product_id", id).del();
-		return res.json({ message: "Produto removido com sucesso!" });
 	}
 	async show(req, res) {
 		const { id } = req.params;
@@ -67,43 +75,47 @@ class ProductsController {
 		});
 	}
 	async update(req, res) {
-		const data = req.body.data;
-		const { name, price, description, category, ingredients } =
-			JSON.parse(data);
-		const stringImage = typeof req.body.image;
-		const { id } = req.params;
+		try {
+			const data = req.body.data;
+			const { name, price, description, category, ingredients } =
+				JSON.parse(data);
+			const stringImage = typeof req.body.image;
+			const { id } = req.params;
 
-		if (!name || !price || !description || !category) {
-			throw new AppError("Não foi possivel realizar o cadastro.");
-		}
-		if (!(stringImage === "string")) {
-			const image = req.file?.filename;
-			const filename = await diskStorage.saveFile(image);
-			await knex("products").where({ id }).update({
-				name,
-				price,
-				description,
-				category,
-				image: filename,
+			if (!name || !price || !description || !category) {
+				throw new AppError("Não foi possivel realizar o cadastro.");
+			}
+			if (!(stringImage === "string")) {
+				const image = req.file?.filename;
+				const filename = await diskStorage.saveFile(image);
+				await knex("products").where({ id }).update({
+					name,
+					price,
+					description,
+					category,
+					image: filename,
+				});
+			} else {
+				await knex("products").where({ id }).update({
+					name,
+					price,
+					description,
+					category,
+				});
+			}
+			const insertIngredients = ingredients.map((ingredient) => {
+				return {
+					name: ingredient,
+					product_id: id,
+				};
 			});
-		} else {
-			await knex("products").where({ id }).update({
-				name,
-				price,
-				description,
-				category,
-			});
+			await knex("ingredients")
+				.where({ product_id: id })
+				.update(insertIngredients);
+			return res.json({ message: "Produto atualizado com sucesso!" });
+		} catch (e) {
+			throw new AppError(e.message, 500);
 		}
-		const insertIngredients = ingredients.map((ingredient) => {
-			return {
-				name: ingredient,
-				product_id: id,
-			};
-		});
-		await knex("ingredients")
-			.where({ product_id: id })
-			.update(insertIngredients);
-		return res.json({ message: "Produto atualizado com sucesso!" });
 	}
 }
 
