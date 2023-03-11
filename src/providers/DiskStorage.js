@@ -8,7 +8,6 @@ class DiskStorage {
 			path.resolve(uploadConfig.TMP_FOLDER, file),
 			path.resolve(uploadConfig.UPLOAD_FOLDER, file),
 		);
-
 		return file;
 	}
 }

@@ -7,7 +7,8 @@ function ensureAuthenticated(request, response, next) {
 	if (!authHeader) {
 		throw new AppError("JWT token inválido");
 	}
-	const [, access_token] = authHeader.split(" ");
+	// eslint-disable-next-line no-unused-vars
+	const [_, access_token] = authHeader.split(" ");
 	try {
 		const { sub: user_id } = verify(access_token, authConfig.jwt.secret);
 		request.user = {
