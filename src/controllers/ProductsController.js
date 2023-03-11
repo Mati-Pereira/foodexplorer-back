@@ -1,6 +1,5 @@
 const knex = require("../knex");
 const AppError = require("../utils/AppError");
-// const diskStorage = require("../providers/DiskStorage");
 const cloudinary = require("cloudinary").v2;
 
 class ProductsController {
@@ -31,14 +30,10 @@ class ProductsController {
 			const { name, price, description, ingredients, category } =
 				JSON.parse(data);
 			const file = req.file;
-			console.log("file", file);
 			if (!file) {
 				throw new AppError("Arquivo de imagem não foi enviado corretamente.");
 			}
-
 			const image = await cloudinary.uploader.upload(file.path);
-			console.log(image);
-
 			const [productId] = await knex("products")
 				.insert({
 					name,
