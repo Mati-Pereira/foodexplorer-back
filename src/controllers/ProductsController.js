@@ -1,15 +1,8 @@
 const knex = require("../knex");
 const AppError = require("../utils/AppError");
-const cloudinary = require("cloudinary").v2;
+const cloudinary = require("../providers/cloudinary");
 
 class ProductsController {
-	constructor() {
-		cloudinary.config({
-			cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-			api_key: process.env.CLOUDINARY_API_KEY,
-			api_secret: process.env.CLOUDINARY_API_SECRET,
-		});
-	}
 	async index(req, res) {
 		try {
 			const { name } = req.query;
