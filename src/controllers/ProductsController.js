@@ -114,6 +114,7 @@ class ProductsController {
 
 			return res.json({ message: "Produto atualizado com sucesso!" });
 		} catch (e) {
+			console.log(e);
 			throw new AppError(e.message, 500);
 		}
 	}
