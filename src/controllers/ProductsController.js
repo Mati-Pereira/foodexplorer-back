@@ -28,20 +28,18 @@ class ProductsController {
 
 			const filename = await diskStorage.saveFile(image);
 
-			const [productId] = await knex("products")
-				.insert({
-					name,
-					price,
-					description,
-					category,
-					image: filename,
-				})
-				.returning("id");
+			const product_id = await knex("products").insert({
+				name,
+				price,
+				description,
+				category,
+				image: filename,
+			});
 
 			const insertIngredients = ingredients.map((ingredient) => {
 				return {
 					name: ingredient,
-					product_id: productId.id,
+					product_id,
 				};
 			});
 
