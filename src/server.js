@@ -10,9 +10,9 @@ const app = express();
 
 app.use(cors());
 
-app.use(express.json());
-
 app.use("/", express.static(uploadConfig.UPLOAD_FOLDER));
+
+app.use(express.json());
 
 app.use(routes);
 

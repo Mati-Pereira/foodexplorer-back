@@ -25,7 +25,9 @@ class ProductsController {
 			if (!name || !price || !description || !ingredients || !category) {
 				throw new AppError("Não foi possivel realizar o cadastro.");
 			}
+
 			const filename = await diskStorage.saveFile(image);
+
 			const [productId] = await knex("products")
 				.insert({
 					name,
@@ -35,12 +37,14 @@ class ProductsController {
 					image: filename,
 				})
 				.returning("id");
+
 			const insertIngredients = ingredients.map((ingredient) => {
 				return {
 					name: ingredient,
 					product_id: productId.id,
 				};
 			});
+
 			await knex("ingredients").insert(insertIngredients);
 			return res.json({ message: "Produto cadastrado com sucesso!" });
 		} catch (e) {
