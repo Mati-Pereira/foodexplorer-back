@@ -1,6 +1,6 @@
 const knex = require("../knex");
 const AppError = require("../utils/AppError");
-const cloudinary = require("../providers/cloudinary");
+const DiskStorage = require("../providers/DiskStorage");
 
 class ProductsController {
 	async index(req, res) {
@@ -22,21 +22,27 @@ class ProductsController {
 			const data = req.body.data;
 			const { name, price, description, ingredients, category } =
 				JSON.parse(data);
-			const file = req.file;
-			if (!file) {
+			const diskStorage = new DiskStorage();
+
+			const img = req.file.filename;
+
+			if (!img) {
 				throw new AppError("Arquivo de imagem não foi enviado corretamente.");
 			}
-			const image = await cloudinary.uploader.unsigned_upload(
-				file.path,
-				"tomlfafh",
-			);
+
+			const filename = await diskStorage.saveFile(img);
+
+			if (!name || !price || !description || !img || !category) {
+				throw new AppError("Não foi possivel realizar o cadastro.");
+			}
+
 			const [productId] = await knex("products")
 				.insert({
 					name,
 					price,
 					description,
 					category,
-					image: image.secure_url,
+					image: filename,
 				})
 				.returning("id");
 			const insertIngredients = ingredients.map((ingredient) => {
@@ -80,34 +86,32 @@ class ProductsController {
 			const data = req.body.data;
 			const { name, price, description, category, ingredients } =
 				JSON.parse(data);
-			const file = req.file;
 			const { id } = req.params;
+			const diskStorage = new DiskStorage();
+			const img = req.file.filename;
 
 			if (!name || !price || !description || !category) {
 				throw new AppError("Não foi possivel realizar o cadastro.");
 			}
 
-			let image = null;
-
-			if (file) {
-				image = await cloudinary.uploader.unsigned_upload(
-					file.path,
-					"tomlfafh",
-				);
+			if (img) {
+				const filename = await diskStorage.saveFile(img);
+				await knex("products").where({ id }).update({
+					name,
+					price,
+					description,
+					img: filename,
+					category,
+				});
+			} else {
+				const productUpdate = {
+					name,
+					price,
+					description,
+					category,
+				};
+				await knex("products").where({ id }).update(productUpdate);
 			}
-
-			const productUpdate = {
-				name,
-				price,
-				description,
-				category,
-			};
-
-			if (image) {
-				productUpdate.image = image.secure_url;
-			}
-
-			await knex("products").where({ id }).update(productUpdate);
 
 			const insertIngredients = ingredients.map((ingredient) => {
 				return {
@@ -117,7 +121,6 @@ class ProductsController {
 			});
 			await knex("ingredients").where({ product_id: id }).del();
 			await knex("ingredients").insert(insertIngredients);
-
 			return res.json({ message: "Produto atualizado com sucesso!" });
 		} catch (e) {
 			throw new AppError(e.message, 500);
