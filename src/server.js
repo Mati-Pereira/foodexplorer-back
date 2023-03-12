@@ -8,18 +8,9 @@ const routes = require("./routes");
 
 const app = express();
 
-app.use(
-	cors({
-		credentials: true,
-		origin: "*",
-		methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
-	}),
-);
-
+app.use(cors());
 app.use("/", express.static(uploadConfig.UPLOAD_FOLDER));
-
 app.use(express.json());
-
 app.use(routes);
 
 // eslint-disable-next-line no-unused-vars
