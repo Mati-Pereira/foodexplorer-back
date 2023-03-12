@@ -49,11 +49,11 @@ class ProductsController {
 	}
 	async delete(req, res) {
 		const { id } = req.params;
-		const product = await knex("products").where("id", id).first();
+		const product = await knex("products").where({ id }).first();
 		if (!product) {
 			throw new AppError("Produto não encontrado.");
 		}
-		await knex("products").where("id", id).del();
+		await knex("products").where({ id }).del();
 		await knex("ingredients").where("product_id", id).del();
 		return res.json({ message: "Produto removido com sucesso!" });
 	}
