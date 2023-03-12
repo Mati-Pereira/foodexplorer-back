@@ -1,6 +1,6 @@
 const knex = require("../knex");
 const AppError = require("../utils/AppError");
-const imagekit = require("../providers/imagekit");
+const cloudinary = require("../providers/cloudinary");
 
 class ProductsController {
 	async index(req, res) {
@@ -26,14 +26,14 @@ class ProductsController {
 			if (!file) {
 				throw new AppError("Arquivo de imagem não foi enviado corretamente.");
 			}
-			const image = await imagekit.upload(file.path);
+			const image = await cloudinary.uploader.upload(file.path);
 			const [productId] = await knex("products")
 				.insert({
 					name,
 					price,
 					description,
 					category,
-					image: image.url,
+					image: image.secure_url,
 				})
 				.returning("id");
 			const insertIngredients = ingredients.map((ingredient) => {
@@ -87,7 +87,7 @@ class ProductsController {
 			let image = null;
 
 			if (file) {
-				image = await imagekit.upload(file.path);
+				image = await cloudinary.uploader.upload(file.path);
 			}
 
 			const productUpdate = {
@@ -98,7 +98,7 @@ class ProductsController {
 			};
 
 			if (image) {
-				productUpdate.image = image.url;
+				productUpdate.image = image.secure_url;
 			}
 
 			await knex("products").where({ id }).update(productUpdate);
