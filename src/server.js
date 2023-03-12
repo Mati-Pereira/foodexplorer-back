@@ -3,6 +3,7 @@ require("express-async-errors");
 const AppError = require("./utils/AppError");
 const express = require("express");
 const cors = require("cors");
+const uploadConfig = require("./configs/upload");
 const routes = require("./routes");
 
 const app = express();
@@ -14,6 +15,7 @@ app.use(
 	}),
 );
 app.use(express.urlencoded({ extended: true, limit: "25mb" }));
+app.use("/", express.static(uploadConfig.UPLOAD_FOLDER));
 app.use(routes);
 
 // eslint-disable-next-line no-unused-vars
