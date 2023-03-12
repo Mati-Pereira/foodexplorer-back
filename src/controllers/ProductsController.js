@@ -26,7 +26,10 @@ class ProductsController {
 			if (!file) {
 				throw new AppError("Arquivo de imagem não foi enviado corretamente.");
 			}
-			const image = await cloudinary.uploader.upload(file.path);
+			const image = await cloudinary.uploader.unsigned_upload(
+				file.path,
+				"tomlfafh",
+			);
 			const [productId] = await knex("products")
 				.insert({
 					name,
@@ -87,7 +90,10 @@ class ProductsController {
 			let image = null;
 
 			if (file) {
-				image = await cloudinary.uploader.upload(file.path);
+				image = await cloudinary.uploader.unsigned_upload(
+					file.path,
+					"tomlfafh",
+				);
 			}
 
 			const productUpdate = {
@@ -114,7 +120,6 @@ class ProductsController {
 
 			return res.json({ message: "Produto atualizado com sucesso!" });
 		} catch (e) {
-			console.log(e);
 			throw new AppError(e.message, 500);
 		}
 	}
