@@ -14,9 +14,6 @@ app.use(
 	}),
 );
 app.use(express.urlencoded({ extended: true, limit: "25mb" }));
-app.use((_, res) => {
-	res.setHeader("Access-Control-Allow-Origin", "*");
-});
 app.use(routes);
 
 // eslint-disable-next-line no-unused-vars
@@ -34,5 +31,5 @@ app.use((error, request, response, next) => {
 });
 
 app.listen(3000, () => {
-	console.log(`O server está rodando na porta ${3000}`);
+	console.log(`O server está rodando na porta 3000`);
 });
