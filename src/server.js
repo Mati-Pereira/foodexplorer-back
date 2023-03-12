@@ -8,7 +8,8 @@ const routes = require("./routes");
 
 const app = express();
 
-app.use(cors());
+app.options("*", cors());
+
 app.use("/", express.static(uploadConfig.UPLOAD_FOLDER));
 app.use(express.json());
 app.use(routes);
