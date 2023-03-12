@@ -8,7 +8,13 @@ const routes = require("./routes");
 
 const app = express();
 
-app.use(cors());
+app.use(
+	cors({
+		credentials: true,
+		origin: "*",
+		methods: "GET,HEAD,PUT,PATCH,POST,DELETE",
+	}),
+);
 
 app.use("/", express.static(uploadConfig.UPLOAD_FOLDER));
 
