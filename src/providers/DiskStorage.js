@@ -12,4 +12,4 @@ class DiskStorage {
 	}
 }
 
-module.exports = DiskStorage;
+module.exports = new DiskStorage();
