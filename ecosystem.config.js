@@ -3,10 +3,7 @@ module.exports = {
 		{
 			name: "app",
 			script: "./src/server.js",
-			ignore_watch: ["node_modules"],
-			watch: true,
-			max_memory_restart: "1G",
-			instances: "1",
+			instances: "max",
 			env: {
 				NODE_ENV: "development",
 			},

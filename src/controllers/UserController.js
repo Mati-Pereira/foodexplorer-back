@@ -16,8 +16,11 @@ class UserController {
 				status: "success",
 				message: "Usuário criado com sucesso!",
 			});
-		} catch (e) {
-			throw new AppError(e.message, 500);
+		} catch (error) {
+			return response.status(400).json({
+				status: "error",
+				message: error.message,
+			});
 		}
 	}
 }

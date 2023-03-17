@@ -1,11 +1,10 @@
 const { Router } = require("express");
 const multer = require("multer");
 const uploadConfig = require("../configs/upload");
-const productsController = require("../controllers/ProductsController");
 
 const upload = multer(uploadConfig.MULTER);
-
 const productsRoutes = Router();
+const productsController = require("../controllers/ProductsController");
 
 productsRoutes.get("/", productsController.index);
 productsRoutes.get("/:id", productsController.show);

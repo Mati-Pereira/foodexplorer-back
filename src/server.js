@@ -1,18 +1,17 @@
 require("dotenv/config");
 require("express-async-errors");
-const cors = require("cors");
 const AppError = require("./utils/AppError");
-const express = require("express");
 const uploadConfig = require("./configs/upload");
+const express = require("express");
+const cors = require("cors");
 const routes = require("./routes");
 
 const app = express();
 
-app.options("*", cors());
-
-app.use("/", express.static(uploadConfig.UPLOAD_FOLDER));
 app.use(express.json());
+app.use(cors());
 app.use(routes);
+app.use("/", express.static(uploadConfig.UPLOADS_FOLDER));
 
 // eslint-disable-next-line no-unused-vars
 app.use((error, request, response, next) => {
@@ -29,5 +28,5 @@ app.use((error, request, response, next) => {
 });
 
 app.listen(3000, () => {
-	console.log(`O server está rodando na porta 3000`);
+	console.log(`O server está rodando na porta ${3000}`);
 });

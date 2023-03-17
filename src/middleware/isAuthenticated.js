@@ -1,14 +1,12 @@
 const { verify } = require("jsonwebtoken");
 const AppError = require("../utils/AppError");
 const authConfig = require("../configs/auth");
-
 function ensureAuthenticated(request, response, next) {
 	const authHeader = request.headers.authorization;
 	if (!authHeader) {
 		throw new AppError("JWT token inválido");
 	}
-	// eslint-disable-next-line no-unused-vars
-	const [_, access_token] = authHeader.split(" ");
+	const [, access_token] = authHeader.split(" ");
 	try {
 		const { sub: user_id } = verify(access_token, authConfig.jwt.secret);
 		request.user = {
