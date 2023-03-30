@@ -2,10 +2,10 @@
   "name": "foodexplorer-back",
   "description": "FoodExplorer Backend",
   "version": "0.1.0",
-  "main": "./src/server.js",
+  "main": "src/server.js",
   "license": "MIT",
   "scripts": {
-    "start": "node src/server.js",
+    "start": "node .",
     "dev": "nodemon src/server.js",
     "format": "prettier --write .",
     "fix": "eslint --fix --ext .js .",

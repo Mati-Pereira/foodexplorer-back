@@ -1,15 +1,15 @@
 {
+  "name": "foodexplorer-back",
   "version": 2,
-  "builds": [
-    {
-      "src": "./src/server.js",
-      "use": "@vercel/node"
-    }
-  ],
+  "public": true,
+  "builds": {
+    "src": "/src/server.js",
+    "use": "@vercel/node"
+  },
   "routes": [
     {
-      "src": "(.*)",
-      "dest": "/"
+      "src": "/(.*)",
+      "dest": "/src/server.js"
     }
   ]
 }
