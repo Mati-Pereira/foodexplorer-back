@@ -12,9 +12,10 @@ function ensureAuthenticated(request, response, next) {
     request.user = {
       id: Number(user_id),
     };
-    return next();
   } catch (err) {
     throw new AppError(err.message, 401);
   }
+  return next();
 }
+
 module.exports = ensureAuthenticated;
