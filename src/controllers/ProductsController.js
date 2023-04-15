@@ -16,41 +16,44 @@ class ProductsController {
     } else {
       products = await knex("products");
     }
-
     return res.json(products);
   }
 
   async create(req, res) {
     try {
-      const data = req.body.data;
-      const { name, price, description, ingredients, category } =
-        JSON.parse(data);
+      const { name, price, description, category, ingredients } = JSON.parse(
+        req.body.data
+      );
       const image = req.file?.filename;
       if (!image) {
         throw new AppError("Arquivo de imagem não foi enviado corretamente.");
       }
-      if (!name || !price || !description || !ingredients || !category) {
+      if (!name || !price || !description || !category) {
         throw new AppError("Não foi possivel realizar o cadastro.");
       }
       const filename = await diskStorage.saveFile(image);
-      await knex.transaction(async (trx) => {
-        const [insertedProductId] = await trx("products")
-          .insert({ name, price, description, category, image: filename })
-          .returning("id");
-        const insertIngredients = ingredients.map((ingredient) => {
-          return { name: ingredient, product_id: insertedProductId };
-        });
-        await trx("ingredients").insert(insertIngredients);
-        await trx("products")
-          .where({ id: insertedProductId })
-          .update({ image: filename });
-        return [insertedProductId];
+      const [productId] = await knex("products")
+        .insert({
+          name,
+          price,
+          description,
+          category,
+          image: filename,
+        })
+        .returning("id");
+      const insertIngredients = ingredients.map((ingredient) => {
+        return {
+          name: ingredient,
+          product_id: productId.id,
+        };
       });
+      await Promise.all([knex("ingredients").insert(insertIngredients)]);
       return res.json({ message: "Produto cadastrado com sucesso!" });
     } catch (e) {
       throw new AppError(e.message);
     }
   }
+
   async delete(req, res) {
     const { id } = req.params;
     const product = await knex("products").select("id").where("id", id).first();
