@@ -7,12 +7,20 @@ class ProductsController {
     const { name } = req.query;
     let products;
     if (name) {
-      products = await knex("products").where("name", "LIKE", `%${name}%`);
+      const productsWithIngredients = await knex("ingredients")
+        .select("products.*")
+        .join("products", "ingredients.product_id", "=", "products.id")
+        .where("ingredients.name", "LIKE", `%${name}%`);
+
+      products = await knex("products")
+        .where("name", "LIKE", `%${name}%`)
+        .union(productsWithIngredients);
     } else {
       products = await knex("products");
     }
     return res.json(products);
   }
+
   async create(req, res) {
     try {
       const data = req.body.data;
