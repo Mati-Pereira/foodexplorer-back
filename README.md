@@ -3,6 +3,19 @@
 
 FoodExplorer é um site que permite aos usuários comprar alimentos. É um mercado online onde os usuários podem encontrar uma ampla variedade de produtos alimentícios. O aplicativo permite que os usuários busquem produtos pelo nome ou pelo ingrediente.
 
+## Requisitos
+
+- [x] Armazenamento dos dados de admin, restaurante e usuários em banco de dados.
+- [x] Autenticação JWT com validação de senha para entrada na aplicação.
+- [x] Nomes significativos para funções, variáveis, classes, arquivos, tabelas e outros elementos do código.
+- [x] Busca por nome do prato e ingredientes para usuário e admin.
+- [x] Upload de imagens para cadastrar pratos pelo admin.
+- [x] Aplicação responsiva seguindo o conceito Mobile First e modelo do Figma.
+- [x] README bem detalhado no front-end e back-end com link do deploy, previews e instruções de execução do projeto.
+- [x] Uso de animações, transições e transformações para melhorar a experiência da aplicação.
+- [x] Consumo da própria API pela aplicação.
+- [x] Deploy da aplicação (front-end e back-end).
+
 
 ## Autores
 
@@ -57,11 +70,9 @@ Inicie o servidor
   npm run dev
 ```
 
-
 ## Licença
 
 [MIT](https://choosealicense.com/licenses/mit/)
-
 
 ## Variáveis de Ambiente
 
