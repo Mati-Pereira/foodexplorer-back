@@ -19,8 +19,13 @@ FoodExplorer é um site que permite aos usuários comprar alimentos. É um merca
 
 ## Screenshots
 
+**Primeira**
 ![1](https://user-images.githubusercontent.com/94717377/235565058-c547b4cd-4f7f-41ac-93de-c505f3e092e2.png)
+
+**Segunda**
 ![2](https://user-images.githubusercontent.com/94717377/235565063-89a10d8d-5778-4e00-9eb4-fee25c636b69.png)
+
+**Terceira**
 ![3](https://user-images.githubusercontent.com/94717377/235565065-4b05108e-eb87-4f43-bed1-23e8056b147f.png)
 
 ## Rodando localmente
