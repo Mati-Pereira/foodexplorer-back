@@ -8,6 +8,9 @@ FoodExplorer é um site que permite aos usuários comprar alimentos. É um merca
 
 - [@mati-pereira](https://www.github.com/mati-pereira)
 
+## Deploy
+
+[Aqui](https://admirable-tiramisu-e924f5.netlify.app/)
 
 ## Demonstração
 ![gifvideo](https://user-images.githubusercontent.com/94717377/235565105-3e99554e-2471-4e71-a9bb-e592850daab8.gif)
