@@ -7,10 +7,9 @@ FoodExplorer é um site que permite aos usuários comprar alimentos. É um merca
 
 Você pode logar como dois tipos de usuários: admin e comum. Para logar como admin existe apenas um usuário e como este projeto não é comercial vou disponibilizar aqui
 
-```
+
 **email**: admin@email.com
 **senha**: 123456789
-```
 
 ## Requisitos
 
