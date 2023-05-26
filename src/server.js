@@ -31,6 +31,6 @@ app.use((error, request, response, next) => {
   });
 });
 
-app.listen(3000, () => {
-  console.log(`O server está rodando na porta ${3000}`);
+app.listen(process.env.PORT, () => {
+  console.log(`O server está rodando na porta ${process.env.PORT}`);
 });
