@@ -39,9 +39,6 @@ Para logar como comum, basta se registrar caso não tenho criado o usuário.
 
 [Aqui](https://admirable-tiramisu-e924f5.netlify.app/)
 
-## Demonstração
-![gifvideo](https://user-images.githubusercontent.com/94717377/235565105-3e99554e-2471-4e71-a9bb-e592850daab8.gif)
-
 
 ## Stack utilizada
 
@@ -52,7 +49,7 @@ Para logar como comum, basta se registrar caso não tenho criado o usuário.
 Clone o projeto
 
 ```bash
-  git clone https://github.com/Mati-Pereira/foodexplorer-front
+  git clone https://github.com/Mati-Pereira/foodexplorer-back
 ```
 
 Entre no diretório do projeto
@@ -64,7 +61,7 @@ Entre no diretório do projeto
 Instale as dependências
 
 ```bash
-  npm install
+  npm install && npm run migration && npm run seed
 ```
 
 Inicie o servidor
