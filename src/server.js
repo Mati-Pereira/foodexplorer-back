@@ -13,20 +13,24 @@ app.use(cors());
 app.use(routes);
 app.use("/", express.static(uploadConfig.UPLOADS_FOLDER));
 
+app.get("/", (request, response) => {
+  return response.json({ message: "Server está rodando" });
+});
+
 // eslint-disable-next-line no-unused-vars
 app.use((error, request, response, next) => {
-	if (error instanceof AppError) {
-		return response.status(error.statusCode).json({
-			status: "error",
-			message: error.message,
-		});
-	}
-	return response.status(500).json({
-		status: "error",
-		message: "Erro interno do servidor",
-	});
+  if (error instanceof AppError) {
+    return response.status(error.statusCode).json({
+      status: "error",
+      message: error.message,
+    });
+  }
+  return response.status(500).json({
+    status: "error",
+    message: "Erro interno do servidor",
+  });
 });
 
 app.listen(3000, () => {
-	console.log(`O server está rodando na porta ${3000}`);
+  console.log(`O server está rodando na porta ${3000}`);
 });
