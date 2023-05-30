@@ -12,7 +12,7 @@ class OrdersController {
     const user_id = req.user.id;
     const { description } = req.body;
     if (!description) {
-      throw new AppError("Preencha todos os campos", 400);
+      throw new AppError("Adicione produtos ao seu pedido", 400);
     }
     const now = moment.tz("America/Sao_Paulo");
     const formattedNow = now.format("YYYY-MM-DD HH:mm:ss");
