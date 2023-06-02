@@ -14,7 +14,9 @@ senha: 123456789
 
 Para logar como comum, basta se registrar caso não tenho criado o usuário.
 
-**Observações**: Como estou usando um plano gratuito do Render, plataforma usado para host do backend, quando o servidor fica em inatividade por um tempo, ele começa a desligar em um certo tempo. Então, no primeiro acesso depois um tempo sem utilizar a aplicação, pode demorar alguns minutos até o servidor voltar a funcionar normalmente.
+**Observações**: 
+ - Como estou usando um plano gratuito do Render, plataforma usado para host do backend, quando o servidor fica em inatividade por um tempo, ele começa a desligar em um certo tempo. Então, no primeiro acesso depois um tempo sem utilizar a aplicação, pode demorar alguns minutos até o servidor voltar a funcionar normalmente.
+ - Caso você fique ausente por um tempo considerável, os todos os dados que foram inseridos no app FoodExplorer serão deletados pela fato do render, plataforma onde banco de dados e server fica, não armazenar arquivos na conta gratuita.
 
 
 ## Requisitos
